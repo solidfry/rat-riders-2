@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 338c73f11d7f8d447a09028abe4bd5ca
+guid: 0aabe22e0898f1444ae26bbd23959a2c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -69,7 +69,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -116,7 +116,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: rat_run_0
+      name: ratgoblin-bite_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,20 +124,20 @@ TextureImporter:
         width: 32
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 65789a3a5289fdf4cb7448c571e10379
-      internalID: -1022361680
+      spriteID: 49727043571afdd4cb5436e3787adcbf
+      internalID: 669580042
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rat_run_1
+      name: ratgoblin-bite_1
       rect:
         serializedVersion: 2
         x: 32
@@ -145,20 +145,20 @@ TextureImporter:
         width: 32
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0b750bfa038ace44c8754c5103bd3a33
-      internalID: -1705796628
+      spriteID: 4b4740742b61d5e40998fe9ddfe5213a
+      internalID: 2011493195
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rat_run_2
+      name: ratgoblin-bite_2
       rect:
         serializedVersion: 2
         x: 64
@@ -166,20 +166,20 @@ TextureImporter:
         width: 32
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 957f95adc2c0d1e4eb38b8886ec2ba61
-      internalID: 1901801801
+      spriteID: 4787bccc3f5a73242b676dcb0eab50f3
+      internalID: -99970267
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rat_run_3
+      name: ratgoblin-bite_3
       rect:
         serializedVersion: 2
         x: 96
@@ -187,20 +187,20 @@ TextureImporter:
         width: 32
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 23517fdba4b8bb24bb3fbb06387439f1
-      internalID: -1767705540
+      spriteID: eaa236013099dd841ab2dc00f7d4966d
+      internalID: 2042721871
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: rat_run_4
+      name: ratgoblin-bite_4
       rect:
         serializedVersion: 2
         x: 128
@@ -208,77 +208,14 @@ TextureImporter:
         width: 32
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ded2eedcf61b7454998493a34f528518
-      internalID: -62974017
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rat_run_5
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 0
-        width: 32
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 901f2daedcfd1a945a76642cba36caf3
-      internalID: -2064965006
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rat_run_6
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 0
-        width: 32
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f962b471429297c439f00c35c908ee97
-      internalID: 1006704612
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: rat_run_7
-      rect:
-        serializedVersion: 2
-        x: 224
-        y: 0
-        width: 32
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 62f146508d079e7409cd104b3fd67455
-      internalID: 33544869
+      spriteID: 7db5eebf392aa3c409bbbd730ca042e6
+      internalID: -1965785176
       vertices: []
       indices: 
       edges: []
@@ -294,14 +231,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      rat_run_3: -1767705540
-      rat_run_6: 1006704612
-      rat_run_2: 1901801801
-      rat_run_4: -62974017
-      rat_run_0: -1022361680
-      rat_run_5: -2064965006
-      rat_run_1: -1705796628
-      rat_run_7: 33544869
+      ratgoblin-bite_2: -99970267
+      ratgoblin-bite_0: 669580042
+      ratgoblin-bite_3: 2042721871
+      ratgoblin-bite_1: 2011493195
+      ratgoblin-bite_4: -1965785176
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
