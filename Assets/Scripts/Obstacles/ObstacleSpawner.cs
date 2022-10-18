@@ -1,18 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.SocialPlatforms;
 
-public class ObstacleSpawner : MonoBehaviour
+namespace Obstacles
 {
-    // Start is called before the first frame update
-    void Start()
+    public class ObstacleSpawner : MonoBehaviour
     {
-        
-    }
+        [SerializeField] private float timeBetweenSpawn;
+        [SerializeField] private float startTimeBetweenSpawn;
+        [SerializeField] private Obstacle[] obstaclesList;
+        [SerializeField] private bool isSpawning;
+        public bool IsSpawning => isSpawning;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        void Update()
+        {
+            if (isSpawning)
+            {
+                if (timeBetweenSpawn <= 0)
+                {
+                    Instantiate(obstaclesList[Random.Range(0, obstaclesList.Length)], transform.position, Quaternion.identity);
+                    timeBetweenSpawn = startTimeBetweenSpawn;
+                }
+                else
+                {
+                    timeBetweenSpawn -= Time.deltaTime;
+                }
+            }
+        }
     }
 }
