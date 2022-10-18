@@ -34,14 +34,11 @@ namespace Player
                 ? _spriteRenderer.color = LerpColor(originalColor, damageColor)
                 : _spriteRenderer.color = originalColor;
         }
-
-
+        
         private void SetDamaged()
         {
-            damaged = true;
-            StartCoroutine(DelayedSetDamage());
+            damaged = true; StartCoroutine(DelayedSetDamage());
         }
-        
 
         private void OnTriggerEnter2D(Collider2D col)
         {
@@ -58,11 +55,8 @@ namespace Player
             }
         }
         
-        Color LerpColor(Color a, Color b)
-        {
-            return Color.Lerp(a, b, Mathf.PingPong(Time.time * damageFlashCount, .5f));
-        }
-
+        Color LerpColor(Color a, Color b) => Color.Lerp(a, b, Mathf.PingPong(Time.time * damageFlashCount, .5f));
+        
         IEnumerator DelayedSetDamage()
         {
             yield return new WaitForSeconds(damagedFlashTime);
