@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Events;
 using UnityEngine;
 
@@ -56,11 +57,11 @@ namespace Player
         }
         
         Color LerpColor(Color a, Color b) => Color.Lerp(a, b, Mathf.PingPong(Time.time * damageFlashCount, .5f));
-        
+
         IEnumerator DelayedSetDamage()
         {
             yield return new WaitForSeconds(damagedFlashTime);
-            damaged= false;
+            damaged = false;
         }
         
     }
