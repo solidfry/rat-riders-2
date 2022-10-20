@@ -16,7 +16,7 @@ namespace UI
         private int maxCount;
 
         public Sprite empty, full;
-        private List<Image> images = new();
+        public List<Image> images = new();
 
         [SerializeField]
         private GameObject objPrefab;
@@ -42,10 +42,10 @@ namespace UI
             GameEvents.onHealthChangeEvent -= ChangeCount;
         }
 
-        void ChangeCount(int currentCharges)
+        void ChangeCount(int currentCount)
         {
-            count = currentCharges;
-            if (currentCharges < maxCount)
+            count = currentCount;
+            if (currentCount <= maxCount)
                 for (int i = 0; i < images.Count; i++)
                 {
                     images[i].sprite = i < count ? full : empty;
@@ -60,7 +60,7 @@ namespace UI
             for (int i = 0; i < loopCount; i++)
             {
                 GameObject obj = Instantiate(objPrefab, transform);
-                images.Add(obj.GetComponent<Image>());
+                images.Add(obj.GetComponentInChildren<Image>());
             }
         }
     }

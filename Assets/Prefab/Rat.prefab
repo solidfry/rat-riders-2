@@ -117,7 +117,7 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.1, y: 0}
   serializedVersion: 2
   m_Radius: 0.19
 --- !u!114 &634749690457713918
@@ -134,6 +134,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageParticle: {fileID: 1453834973128888382, guid: 77e7bdecf237494488dabe82b049d4b2, type: 3}
   particleColor: {r: 0.8509804, g: 0.34117648, b: 0.3882353, a: 1}
+  damageColor: {r: 0, g: 0, b: 0, a: 0}
+  originalColor: {r: 0, g: 0, b: 0, a: 0}
+  damagedFlashTime: 0
+  damageFlashCount: 0
+  damaged: 0
 --- !u!1 &7214167155204362656
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,6 +153,7 @@ GameObject:
   - component: {fileID: 515536262}
   - component: {fileID: 515536261}
   - component: {fileID: 515536264}
+  - component: {fileID: 4545440811108521886}
   m_Layer: 0
   m_Name: Rat
   m_TagString: Untagged
@@ -319,6 +325,20 @@ MonoBehaviour:
   initialWaitTime: 0.2
   attackTimeEnd: 0.5
   attackTrigger: {fileID: 0}
+--- !u!114 &4545440811108521886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7214167155204362656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cb630c0c30f0b949b6185aa483bea98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitPoints: 3
+  maxHitPoints: 3
 --- !u!1 &7668776776024040116
 GameObject:
   m_ObjectHideFlags: 0

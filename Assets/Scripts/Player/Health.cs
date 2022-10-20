@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Events;
 using UnityEngine;
@@ -14,17 +15,34 @@ namespace Core
             get => hitPoints;
             set
             {
-                hitPoints = value;
+                hitPoints = Mathf.Clamp(value, 0, maxHitPoints);
                 GameEvents.onHealthChangeEvent?.Invoke(hitPoints);
-                if (hitPoints >= maxHitPoints) hitPoints = maxHitPoints;
                 if (hitPoints == 0) GameEvents.onPlayerDiedEvent?.Invoke();
             }
         }
 
-        private void Awake()
+        private void Start() => GameEvents.onSetHealthCountEvent?.Invoke(HitPoints);
+
+        private void OnEnable()
         {
-            GameEvents.onSetHealthCountEvent?.Invoke(HitPoints);
+            GameEvents.onPlayerDamagedEvent += ReduceHitPoints;
+            GameEvents.onPlayerHealedEvent += IncreaseHitPoints;
         }
+
+        private void OnDisable()
+        {
+            GameEvents.onPlayerDamagedEvent -= ReduceHitPoints;
+            GameEvents.onPlayerHealedEvent -= IncreaseHitPoints;
+
+        }
+
+        private void ReduceHitPoints()
+        {
+            HitPoints--;
+            GameEvents.onScreenShakeEvent.Invoke(CameraShake.Strength.VeryHigh);
+        }
+        private void IncreaseHitPoints() => HitPoints++;
+
 
     }
 }

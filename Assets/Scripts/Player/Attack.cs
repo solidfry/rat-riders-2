@@ -1,5 +1,6 @@
 using Interfaces;
 using Obstacles;
+using Events;
 using UnityEngine;
 
 namespace Player
@@ -12,6 +13,7 @@ namespace Player
             if (attackable != null)
             {
                 attackable.Action();
+                GameEvents.onScreenShakeEvent?.Invoke(CameraShake.Strength.Low);
             }
         }
     }

@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Events;
 
 namespace Player
 {
@@ -9,7 +10,7 @@ namespace Player
         private PlayerControls _controls;
         [SerializeField] Rigidbody2D rb;
         [SerializeField] Animator animator;
-    
+
         public float jumpForce = 5;
         [ReadOnly] public bool isGrounded;
         [SerializeField] private Transform groundCheck;
@@ -17,19 +18,24 @@ namespace Player
         [SerializeField] private float initialWaitTime;
         [SerializeField] private float attackTimeEnd;
         [SerializeField] private BoxCollider2D attackTrigger;
-    
+
+        public bool IsGrounded
+        {
+            get => isGrounded;
+            set => isGrounded = value;
+        }
+
         #region AnimationValues
         private static readonly int JumpAnim = Animator.StringToHash("Jump");
         private static readonly int BiteAnim = Animator.StringToHash("Bite");
         private static readonly int Grounded = Animator.StringToHash("Grounded");
         #endregion
-    
+
         void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
             animator = GetComponent<Animator>();
             _controls = new PlayerControls();
-            _controls.Enable();
             attackTrigger = GetComponentInChildren<BoxCollider2D>();
             attackTrigger.gameObject.SetActive(false);
         }
@@ -38,6 +44,7 @@ namespace Player
         {
             _controls.Touch.Jump.performed += Jump;
             _controls.Touch.Bite.performed += Bite;
+            _controls.Enable();
         }
 
         private void OnDisable()
@@ -49,8 +56,8 @@ namespace Player
 
         void FixedUpdate()
         {
-            isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
-            animator.SetBool(Grounded, isGrounded);
+            IsGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
+            animator.SetBool(Grounded, IsGrounded);
         }
 
         private void Bite(InputAction.CallbackContext ctx)
@@ -69,7 +76,7 @@ namespace Player
 
         private void Jump(InputAction.CallbackContext ctx)
         {
-            if (isGrounded)
+            if (IsGrounded)
             {
                 rb.velocity = new Vector2(0, jumpForce);
                 animator.SetTrigger(JumpAnim);
