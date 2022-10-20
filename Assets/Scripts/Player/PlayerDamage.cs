@@ -6,13 +6,13 @@ using UnityEngine;
 namespace Player
 {
     public class PlayerDamage : MonoBehaviour
-    { 
+    {
         [Header("Particle Settings")]
         [SerializeField] private GameObject damageParticle;
         [SerializeField] private Color particleColor;
-        
+
         [Space(20)]
-        
+
         private SpriteRenderer _spriteRenderer;
         [Header("Damage Colour Settings")]
         [SerializeField] private Color damageColor;
@@ -26,8 +26,8 @@ namespace Player
             originalColor = _spriteRenderer.color;
         }
 
-        private void OnEnable() => GameEvents.OnPlayerDamagedEvent += SetDamaged;
-        private void OnDisable() => GameEvents.OnPlayerDamagedEvent -= SetDamaged;
+        private void OnEnable() => GameEvents.onPlayerDamagedEvent += SetDamaged;
+        private void OnDisable() => GameEvents.onPlayerDamagedEvent -= SetDamaged;
 
         private void Update()
         {
@@ -35,7 +35,7 @@ namespace Player
                 ? _spriteRenderer.color = LerpColor(originalColor, damageColor)
                 : _spriteRenderer.color = originalColor;
         }
-        
+
         private void SetDamaged()
         {
             damaged = true; StartCoroutine(DelayedSetDamage());
@@ -45,17 +45,17 @@ namespace Player
         {
             if (col.CompareTag("Obstacle"))
             {
-                var particle= Instantiate(damageParticle, transform.position, Quaternion.identity, GameObject.Find("Obstacles").transform);
+                var particle = Instantiate(damageParticle, transform.position, Quaternion.identity, GameObject.Find("Obstacles").transform);
                 var ps = particle.GetComponent<ParticleSystem>();
                 var particleSystemMain = ps.main;
                 particleSystemMain.startColor = particleColor;
-                Destroy(particle,1f);
-                
+                Destroy(particle, 1f);
+
                 Destroy(col.gameObject);
-                GameEvents.OnPlayerDamagedEvent?.Invoke();
+                GameEvents.onPlayerDamagedEvent?.Invoke();
             }
         }
-        
+
         Color LerpColor(Color a, Color b) => Color.Lerp(a, b, Mathf.PingPong(Time.time * damageFlashCount, .5f));
 
         IEnumerator DelayedSetDamage()
@@ -63,6 +63,6 @@ namespace Player
             yield return new WaitForSeconds(damagedFlashTime);
             damaged = false;
         }
-        
+
     }
 }
