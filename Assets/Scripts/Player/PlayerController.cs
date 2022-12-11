@@ -24,6 +24,7 @@ namespace Player
         [SerializeField] private float initialWaitTime;
         [SerializeField] private float attackTimeEnd;
         [SerializeField] private BoxCollider2D attackTrigger;
+        
         public bool IsGrounded
         {
             get => isGrounded;
@@ -107,10 +108,7 @@ namespace Player
             animator.SetFloat("Speed", Mathf.Abs(horizontalMovement * movementSpeed));
         }
 
-        bool IsCharacterGrounded()
-        {
-            return Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
-        }
+        bool IsCharacterGrounded() => Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
 
         void Flip()
         {

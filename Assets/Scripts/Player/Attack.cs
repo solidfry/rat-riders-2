@@ -9,10 +9,10 @@ namespace Player
     {
         private void OnTriggerEnter2D(Collider2D col)
         {
-            IAttackable attackable = col.GetComponent<Attackable>();
-            if (attackable != null)
+            if(TryGetComponent(out IAttackable attackable))
             {
                 attackable.Action();
+
                 GameEvents.onScreenShakeEvent?.Invoke(CameraShake.Strength.Low);
             }
         }
