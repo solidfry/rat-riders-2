@@ -13,6 +13,7 @@ namespace Player
         [ReadOnly] public bool isFacingRight = true;
         [SerializeField] private float movementSpeed = 8f;
         private float horizontalMovement;
+        [SerializeField] private bool isFalling;
         
         [Header("Jumping")]
         public float jumpForce = 5;
@@ -31,6 +32,12 @@ namespace Player
             set => isGrounded = value;
         }
 
+        public bool IsFalling
+        {
+            get => isFalling;
+            set => isFalling = value;
+        }
+
         public bool IsFacingRight
         {
             get => isFacingRight;
@@ -41,6 +48,8 @@ namespace Player
         private static readonly int JumpAnim = Animator.StringToHash("Jump");
         private static readonly int BiteAnim = Animator.StringToHash("Bite");
         private static readonly int Grounded = Animator.StringToHash("Grounded");
+        private static readonly int Falling = Animator.StringToHash("isFalling");
+
         #endregion
 
         void Awake()
@@ -53,8 +62,12 @@ namespace Player
 
         private void Update()
         {
-            rb.velocity = new Vector2(horizontalMovement * movementSpeed, rb.velocity.y);
+            SetFallingState();
 
+            rb.velocity = new Vector2(horizontalMovement * movementSpeed, rb.velocity.y);
+            IsGrounded = IsCharacterGrounded();
+            animator.SetBool(Grounded, IsGrounded);
+            
             if(!IsFacingRight && horizontalMovement > 0)
             {
                 Flip();
@@ -65,12 +78,29 @@ namespace Player
             }
         }
 
-        void FixedUpdate()
+        private void SetFallingState()
         {
-            IsGrounded = IsCharacterGrounded();
-            animator.SetBool(Grounded, IsGrounded);
+            IsFalling = rb.velocity.y < 0;
+            
+            if (IsFalling && !IsGrounded)
+            {
+                rb.gravityScale = 2.5f;
+                animator.SetBool(Falling,  true);
+            }
+            else
+            {
+                animator.SetBool(Falling,  false);
+                rb.gravityScale = 1;
+            }
+
         }
 
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(groundCheck.position, 0.1f);
+        }
+        
         public void Bite(InputAction.CallbackContext ctx)
         {
             if(ctx.performed)
@@ -99,6 +129,21 @@ namespace Player
             if(ctx.canceled && rb.velocity.y > 0)
             {
                 rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            }
+
+            SetGravityScaleOnJump();
+        }
+
+        void SetGravityScaleOnJump()
+        {
+            // if the player is moving downwards and is not grounded, set the gravity scale to 2 else set it to 1
+            if (rb.velocity.y < 0.1f && !IsGrounded)
+            {
+                rb.gravityScale = 2;
+            }
+            else
+            {
+                rb.gravityScale = 1;
             }
         }
 
