@@ -72,8 +72,11 @@ namespace Player
 
         public void Bite(InputAction.CallbackContext ctx)
         {
-            animator.SetTrigger(BiteAnim);
-            StartCoroutine(ToggleAttackTrigger(initialWaitTime, attackTimeEnd));
+            if(ctx.performed)
+            {
+                animator.SetTrigger(BiteAnim);
+                StartCoroutine(ToggleAttackTrigger(initialWaitTime, attackTimeEnd));
+            }
             
             IEnumerator ToggleAttackTrigger(float waitTime, float attackEnd)
             {
