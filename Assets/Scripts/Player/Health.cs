@@ -1,9 +1,7 @@
-using System;
-using System.Collections;
 using Events;
 using UnityEngine;
 
-namespace Core
+namespace Player
 {
     public class Health : MonoBehaviour
     {
