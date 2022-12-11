@@ -9,9 +9,9 @@ namespace Player
     {
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if(TryGetComponent(out IAttackable attackable))
+            if(col.TryGetComponent(out IAttackable attackable))
             {
-                attackable.Action();
+                attackable.TakeDamage();
 
                 GameEvents.onScreenShakeEvent?.Invoke(CameraShake.Strength.Low);
             }

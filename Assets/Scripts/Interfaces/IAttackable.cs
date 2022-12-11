@@ -2,6 +2,6 @@
 {
     public interface IAttackable
     {
-        public void Action();
+        public void TakeDamage();
     }
 }

@@ -10,7 +10,7 @@ namespace Obstacles
         [SerializeField] private Color particleColor;
         private ParticleSystem _particleSystem;
         
-        public void Action()
+        public void TakeDamage()
         {
             var particle= Instantiate(destroyParticle, transform.position, Quaternion.identity, GameObject.Find("Obstacles").transform);
             _particleSystem = particle.GetComponent<ParticleSystem>();
