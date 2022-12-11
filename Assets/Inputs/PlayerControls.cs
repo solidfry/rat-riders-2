@@ -24,7 +24,7 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
     ""name"": ""PlayerControls"",
     ""maps"": [
         {
-            ""name"": ""Touch"",
+            ""name"": ""Character"",
             ""id"": ""2cf155d5-efb3-4d85-993d-a2e12fdd5930"",
             ""actions"": [
                 {
@@ -44,6 +44,15 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Press"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Move"",
+                    ""type"": ""Value"",
+                    ""id"": ""13396477-5534-4259-8855-c424902e122d"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -53,7 +62,18 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9c05f5de-3103-4b53-a01b-ce89a71747e7"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""GamePad"",
                     ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -64,10 +84,65 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Bite"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""38a94371-a8f4-4c05-817e-99aab7c94905"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""GamePad"",
+                    ""action"": ""Bite"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""56126780-f3a6-448c-92cc-adf13cee630e"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""GamePad"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""WASD"",
+                    ""id"": ""2957105b-7f9c-428a-8287-52d2d3194e38"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""93bab8e5-7fa7-4e46-b6b0-1d6ab8d6262c"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""147b680c-f0e4-4eed-a44b-5c2eb765f4e6"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -588,12 +663,46 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
             ]
         }
     ],
-    ""controlSchemes"": []
+    ""controlSchemes"": [
+        {
+            ""name"": ""GamePad"",
+            ""bindingGroup"": ""GamePad"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Gamepad>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<DualShockGamepad>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<XInputController>"",
+                    ""isOptional"": true,
+                    ""isOR"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Keyboard"",
+            ""bindingGroup"": ""Keyboard"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        }
+    ]
 }");
-        // Touch
-        m_Touch = asset.FindActionMap("Touch", throwIfNotFound: true);
-        m_Touch_Jump = m_Touch.FindAction("Jump", throwIfNotFound: true);
-        m_Touch_Bite = m_Touch.FindAction("Bite", throwIfNotFound: true);
+        // Character
+        m_Character = asset.FindActionMap("Character", throwIfNotFound: true);
+        m_Character_Jump = m_Character.FindAction("Jump", throwIfNotFound: true);
+        m_Character_Bite = m_Character.FindAction("Bite", throwIfNotFound: true);
+        m_Character_Move = m_Character.FindAction("Move", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -662,34 +771,39 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Touch
-    private readonly InputActionMap m_Touch;
-    private ITouchActions m_TouchActionsCallbackInterface;
-    private readonly InputAction m_Touch_Jump;
-    private readonly InputAction m_Touch_Bite;
-    public struct TouchActions
+    // Character
+    private readonly InputActionMap m_Character;
+    private ICharacterActions m_CharacterActionsCallbackInterface;
+    private readonly InputAction m_Character_Jump;
+    private readonly InputAction m_Character_Bite;
+    private readonly InputAction m_Character_Move;
+    public struct CharacterActions
     {
         private @PlayerControls m_Wrapper;
-        public TouchActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Jump => m_Wrapper.m_Touch_Jump;
-        public InputAction @Bite => m_Wrapper.m_Touch_Bite;
-        public InputActionMap Get() { return m_Wrapper.m_Touch; }
+        public CharacterActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Jump => m_Wrapper.m_Character_Jump;
+        public InputAction @Bite => m_Wrapper.m_Character_Bite;
+        public InputAction @Move => m_Wrapper.m_Character_Move;
+        public InputActionMap Get() { return m_Wrapper.m_Character; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(TouchActions set) { return set.Get(); }
-        public void SetCallbacks(ITouchActions instance)
+        public static implicit operator InputActionMap(CharacterActions set) { return set.Get(); }
+        public void SetCallbacks(ICharacterActions instance)
         {
-            if (m_Wrapper.m_TouchActionsCallbackInterface != null)
+            if (m_Wrapper.m_CharacterActionsCallbackInterface != null)
             {
-                @Jump.started -= m_Wrapper.m_TouchActionsCallbackInterface.OnJump;
-                @Jump.performed -= m_Wrapper.m_TouchActionsCallbackInterface.OnJump;
-                @Jump.canceled -= m_Wrapper.m_TouchActionsCallbackInterface.OnJump;
-                @Bite.started -= m_Wrapper.m_TouchActionsCallbackInterface.OnBite;
-                @Bite.performed -= m_Wrapper.m_TouchActionsCallbackInterface.OnBite;
-                @Bite.canceled -= m_Wrapper.m_TouchActionsCallbackInterface.OnBite;
+                @Jump.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnJump;
+                @Bite.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnBite;
+                @Bite.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnBite;
+                @Bite.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnBite;
+                @Move.started -= m_Wrapper.m_CharacterActionsCallbackInterface.OnMove;
+                @Move.performed -= m_Wrapper.m_CharacterActionsCallbackInterface.OnMove;
+                @Move.canceled -= m_Wrapper.m_CharacterActionsCallbackInterface.OnMove;
             }
-            m_Wrapper.m_TouchActionsCallbackInterface = instance;
+            m_Wrapper.m_CharacterActionsCallbackInterface = instance;
             if (instance != null)
             {
                 @Jump.started += instance.OnJump;
@@ -698,10 +812,13 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
                 @Bite.started += instance.OnBite;
                 @Bite.performed += instance.OnBite;
                 @Bite.canceled += instance.OnBite;
+                @Move.started += instance.OnMove;
+                @Move.performed += instance.OnMove;
+                @Move.canceled += instance.OnMove;
             }
         }
     }
-    public TouchActions @Touch => new TouchActions(this);
+    public CharacterActions @Character => new CharacterActions(this);
 
     // UI
     private readonly InputActionMap m_UI;
@@ -807,10 +924,29 @@ public partial class @PlayerControls : IInputActionCollection2, IDisposable
         }
     }
     public UIActions @UI => new UIActions(this);
-    public interface ITouchActions
+    private int m_GamePadSchemeIndex = -1;
+    public InputControlScheme GamePadScheme
+    {
+        get
+        {
+            if (m_GamePadSchemeIndex == -1) m_GamePadSchemeIndex = asset.FindControlSchemeIndex("GamePad");
+            return asset.controlSchemes[m_GamePadSchemeIndex];
+        }
+    }
+    private int m_KeyboardSchemeIndex = -1;
+    public InputControlScheme KeyboardScheme
+    {
+        get
+        {
+            if (m_KeyboardSchemeIndex == -1) m_KeyboardSchemeIndex = asset.FindControlSchemeIndex("Keyboard");
+            return asset.controlSchemes[m_KeyboardSchemeIndex];
+        }
+    }
+    public interface ICharacterActions
     {
         void OnJump(InputAction.CallbackContext context);
         void OnBite(InputAction.CallbackContext context);
+        void OnMove(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
