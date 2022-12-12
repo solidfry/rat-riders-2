@@ -1,12 +1,13 @@
 using System.Collections;
 using Enums;
 using Interfaces;
+using Rage;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Enemies
 {
-    public class EnemyController : MonoBehaviour, IAttackable
+    public class EnemyController : Attackable, IAttackable, IRage
     {
         
         [SerializeField]
@@ -18,8 +19,10 @@ namespace Enemies
         [Header("Stats")] 
         [SerializeField] private int hitPoints = 1;
         [SerializeField] private float speed = 2f;
-        [SerializeField] private float attackRange = 1f;
+        // [SerializeField] private float attackRange = 1f;
         [SerializeField] private float fleeTime = 3f;
+        [SerializeField] private float fleeSpeed = 3.5f;
+        [SerializeField] private RageValue rageValue = new ();
         
         [Header("State")]
         [SerializeField]
@@ -33,7 +36,8 @@ namespace Enemies
         SpriteRenderer spriteRenderer;
         [SerializeField] private LayerMask ground;
         [SerializeField] Color deadColor = new Color(100,100,100,255);
-        
+        [Header("Trail")]
+        [SerializeField] private EnemyTrailHandler trail = new();
         
         public int HitPoints
         {
@@ -100,11 +104,13 @@ namespace Enemies
             animator.SetTrigger(Death);
             rb.bodyType = RigidbodyType2D.Dynamic;
             rb.gravityScale = 2;
+            trail.DisableTrail();
             spriteRenderer.color = deadColor;
         }
 
-        public void TakeDamage()
+        public new void TakeDamage()
         {
+            base.TakeDamage();
             if(IsDead)
                 return;
             
@@ -132,7 +138,7 @@ namespace Enemies
             {
                 // This will make this enemy move away from the player
                 if(movementType == MovementType.Flying)
-                    transform.position = Vector2.MoveTowards(transform.position, target.position, -1 * speed * Time.deltaTime);
+                    transform.position = Vector2.MoveTowards(transform.position, target.position, -1 * fleeSpeed * Time.deltaTime);
 
                 StartCoroutine(SetFleeTime());
             }
@@ -142,6 +148,11 @@ namespace Enemies
         {
             yield return new WaitForSeconds(fleeTime);
             HasAttacked = false;
+        }
+
+        public int GetRageValue()
+        {
+            return rageValue.GetRageValue();
         }
     }
 }

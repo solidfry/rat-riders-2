@@ -402,6 +402,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78ac7226ee89c2e499f30dae8e589aa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyParticle: {fileID: 1453834973128888382, guid: 77e7bdecf237494488dabe82b049d4b2, type: 3}
+  particleColor: {r: 0.6784314, g: 0.18431373, b: 0.27058825, a: 1}
+  destroyOnDeath: 0
   rb: {fileID: 515536262}
   animator: {fileID: 7214167155204362659}
   isFacingRight: 1
