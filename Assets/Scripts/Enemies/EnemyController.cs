@@ -1,28 +1,40 @@
-using System.Collections.Generic;
-using System.Linq;
+using System.Collections;
+using Enums;
 using Interfaces;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Enemies
 {
     public class EnemyController : MonoBehaviour, IAttackable
     {
-        [SerializeField]
-        private bool isTriggered;
-        [SerializeField]
-        private bool isDead;
+        
         [SerializeField]
         private Animator animator;
         [SerializeField]
         private Rigidbody2D rb;
-        [SerializeField]
-        private float speed = 2f;
         private Transform target;
-
+        
         [Header("Stats")] 
         [SerializeField] private int hitPoints = 1;
-
-        List<Collider2D> colliders = new();
+        [SerializeField] private float speed = 2f;
+        [SerializeField] private float attackRange = 1f;
+        [SerializeField] private float fleeTime = 3f;
+        
+        [Header("State")]
+        [SerializeField]
+        private bool isTriggered;
+        [SerializeField]
+        private bool isDead;
+        [FormerlySerializedAs("isAttacking")] [SerializeField]
+        private bool hasAttacked;
+        [SerializeField]
+        private MovementType movementType;
+        SpriteRenderer spriteRenderer;
+        [SerializeField] private LayerMask ground;
+        [SerializeField] Color deadColor = new Color(100,100,100,255);
+        
+        
         public int HitPoints
         {
             get => hitPoints;
@@ -32,30 +44,43 @@ namespace Enemies
                 SetIsDead();
             }
         }
-        
+
+        public bool HasAttacked
+        {
+            get => hasAttacked;
+            set => hasAttacked = value;
+        }
+
+        public bool IsDead
+        {
+            get => isDead;
+            set => isDead = value;
+        }
+
         #region AnimationValues
             private static readonly int IsMoving = Animator.StringToHash("isMoving");
             private static readonly int Death = Animator.StringToHash("Death");
         #endregion
 
-        private void Awake() => colliders = GetComponentsInChildren<Collider2D>().ToList();
-
         private void Start()
         {
+            spriteRenderer = GetComponent<SpriteRenderer>();
             animator = GetComponent<Animator>();
             rb = GetComponent<Rigidbody2D>();
         }
         
         private void Update()
         {
-            if (isTriggered && !isDead)
-            {
-                animator.SetBool(IsMoving, true);
-                // This will make this enemy move towards the player
-                transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
-            }
+            MoveTowards();
+            Flee();
         }
-        
+
+        private void OnCollisionEnter2D(Collision2D col)
+        {
+            if (col.gameObject.CompareTag("Player"))
+                HasAttacked = true;
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("Player"))
@@ -64,27 +89,59 @@ namespace Enemies
                 Debug.Log("Player triggered event");
                 isTriggered = true;
             }
+            
         }
         
         private void SetIsDead()
         {
-            if (HitPoints <= 0)
-            {
-                isDead = true;
-                animator.SetTrigger(Death);
-                rb.bodyType = RigidbodyType2D.Dynamic;
-                rb.gravityScale = 2;
-                rb.simulated = false;
-                foreach (var col in colliders) col.enabled = false;
-            }
+            if(HitPoints > 0) return;
+            
+            IsDead = true;
+            animator.SetTrigger(Death);
+            rb.bodyType = RigidbodyType2D.Dynamic;
+            rb.gravityScale = 2;
+            spriteRenderer.color = deadColor;
         }
 
         public void TakeDamage()
         {
-            if(isDead)
+            if(IsDead)
                 return;
             
             HitPoints--;
+        }
+
+        private void MoveTowards()
+        {
+            if(IsDead) return;
+
+            if (isTriggered && !HasAttacked)
+            {
+                animator.SetBool(IsMoving, true);
+                // This will make this enemy move towards the player
+                if(movementType == MovementType.Flying)
+                    transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+            }
+        }
+        
+        private void Flee()
+        {
+            if(IsDead) return;
+            
+            if(HasAttacked)
+            {
+                // This will make this enemy move away from the player
+                if(movementType == MovementType.Flying)
+                    transform.position = Vector2.MoveTowards(transform.position, target.position, -1 * speed * Time.deltaTime);
+
+                StartCoroutine(SetFleeTime());
+            }
+        }
+
+        private IEnumerator SetFleeTime()
+        {
+            yield return new WaitForSeconds(fleeTime);
+            HasAttacked = false;
         }
     }
 }
