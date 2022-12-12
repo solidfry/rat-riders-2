@@ -166,9 +166,10 @@ MonoBehaviour:
   rb: {fileID: 2677739604552566144}
   hitPoints: 1
   speed: 2
-  attackRange: 1
   fleeTime: 2
   fleeSpeed: 3.5
+  rageValue:
+    value: 20
   isTriggered: 0
   isDead: 0
   hasAttacked: 0
