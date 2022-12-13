@@ -85,8 +85,10 @@ namespace Enemies
         
         private void Update()
         {
-            if(IsDead || IsAttacking || !target) return;
+            if(!target || IsDead) return; 
             distance = Vector2.Distance(transform.position, target.position) < attackRange;
+            
+            if(IsAttacking) return;
             
             MoveTowards();
             Flee();
@@ -180,22 +182,20 @@ namespace Enemies
             animator.SetBool(EnemyAttack, true);
             yield return new WaitForSeconds(.5f);
             
-            if(!distance)
+            if(distance)
             {
-                Debug.Log("We broke out");
-                yield return null;
+                Debug.Log("The distance was too far so the attack missed");
+                attackable.TakeDamage();
             }
-                
-            attackable.TakeDamage();
             
             Debug.Log($"Hit {raycastHit2D.GetComponent<Collider>()}" );
             
-            yield return new WaitForSeconds(1f);
-            animator.SetBool(EnemyAttack, false);
+            yield return new WaitForSeconds(.5f);
             IsAttacking = false;
+            animator.SetBool(EnemyAttack, false);
             HasAttacked = true;
             Flee();
-            
+
         }
 
         public int GetRageValue()
