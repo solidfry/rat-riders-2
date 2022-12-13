@@ -1,10 +1,16 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneHelpers : MonoBehaviour
+namespace Utilities
 {
-    public void Load(string sceneToLoad)
+    public class SceneHelpers : MonoBehaviour
     {
-        SceneManager.LoadScene(sceneToLoad);
+        public static void Load(string sceneToLoad)
+        {
+            SceneManager.LoadScene(sceneToLoad);
+        }
+        
+        public static void ReloadCurrentScene() => SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

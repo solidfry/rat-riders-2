@@ -9,10 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3754313850026233}
-  - component: {fileID: 1677272565384889246}
-  - component: {fileID: 5227738394595753}
   m_Layer: 0
-  m_Name: AttackTrigger
+  m_Name: BiteAttackArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,51 +24,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 182225493735762357}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.275, y: 0.083, z: 0}
+  m_LocalPosition: {x: 0.687, y: -0.041, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7214167155204362653}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &1677272565384889246
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 182225493735762357}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.4, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.8}
-  m_EdgeRadius: 0
---- !u!114 &5227738394595753
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 182225493735762357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56f8430d9d39adb4d80a05fe8defd09b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4310296530410984077
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,6 +367,8 @@ MonoBehaviour:
   destroyOnDeath: 0
   rb: {fileID: 515536262}
   animator: {fileID: 7214167155204362659}
+  playerInput: {fileID: 515536261}
+  isDead: 0
   isFacingRight: 1
   movementSpeed: 4
   isFalling: 0
@@ -416,9 +378,16 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  initialWaitTime: 0.2
-  attackTimeEnd: 0.5
-  attackTrigger: {fileID: 1677272565384889246}
+  canAttack: 1
+  biteAttackCoolDown: 0
+  biteAttackLength: 0.4
+  attackTransform: {fileID: 3754313850026233}
+  attackLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  rageMeter:
+    rageValue: 0
+    isRaging: 0
 --- !u!114 &4545440811108521886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -433,6 +402,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitPoints: 3
   maxHitPoints: 3
+  isPlayer: 1
 --- !u!1 &7668776776024040116
 GameObject:
   m_ObjectHideFlags: 0

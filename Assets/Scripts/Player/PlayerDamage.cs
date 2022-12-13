@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using Events;
+using Interfaces;
 using UnityEngine;
 
 namespace Player
 {
-    public class PlayerDamage : MonoBehaviour
+    public class PlayerDamage : MonoBehaviour, IAttackable
     {
         [Header("Particle Settings")]
         [SerializeField] private GameObject damageParticle;
@@ -40,21 +41,6 @@ namespace Player
             damaged = true; StartCoroutine(DelayedSetDamage());
         }
 
-        private void OnTriggerEnter2D(Collider2D col)
-        {
-            if (col.CompareTag("Obstacle"))
-            {
-                var particle = Instantiate(damageParticle, transform.position, Quaternion.identity, GameObject.Find("Obstacles").transform);
-                var ps = particle.GetComponent<ParticleSystem>();
-                var particleSystemMain = ps.main;
-                particleSystemMain.startColor = particleColor;
-                Destroy(particle, 1f);
-
-                Destroy(col.gameObject);
-                GameEvents.onPlayerDamagedEvent?.Invoke();
-            }
-        }
-
         Color LerpColor(Color a, Color b) => Color.Lerp(a, b, Mathf.PingPong(Time.time * damageFlashCount, .5f));
 
         IEnumerator DelayedSetDamage()
@@ -63,5 +49,15 @@ namespace Player
             damaged = false;
         }
 
+        public void TakeDamage()
+        {
+            var particle = Instantiate(damageParticle, transform.position, Quaternion.identity);
+            var ps = particle.GetComponent<ParticleSystem>();
+            var particleSystemMain = ps.main;
+            particleSystemMain.startColor = particleColor;
+            Destroy(particle, 1f);
+
+            GameEvents.onPlayerDamagedEvent?.Invoke();
+        }
     }
 }

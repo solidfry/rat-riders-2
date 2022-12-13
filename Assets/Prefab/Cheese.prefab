@@ -8,6 +8,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 7300978688936323944, guid: 339d1fd06a32f1d49a5c521c672a7259, type: 3}
+      propertyPath: destroyOnDeath
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300978688936323944, guid: 339d1fd06a32f1d49a5c521c672a7259, type: 3}
       propertyPath: particleColor.b
       value: 0
       objectReference: {fileID: 0}
@@ -35,6 +39,14 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.pivot.y
       value: 0.65
       objectReference: {fileID: 0}
+    - target: {fileID: 7300978688936323945, guid: 339d1fd06a32f1d49a5c521c672a7259, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300978688936323945, guid: 339d1fd06a32f1d49a5c521c672a7259, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7300978688936323946, guid: 339d1fd06a32f1d49a5c521c672a7259, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -49,11 +61,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7300978688936323946, guid: 339d1fd06a32f1d49a5c521c672a7259, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.5
+      value: -1.1771239
       objectReference: {fileID: 0}
     - target: {fileID: 7300978688936323946, guid: 339d1fd06a32f1d49a5c521c672a7259, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.55
+      value: -0.81
       objectReference: {fileID: 0}
     - target: {fileID: 7300978688936323946, guid: 339d1fd06a32f1d49a5c521c672a7259, type: 3}
       propertyPath: m_LocalPosition.z
@@ -103,15 +115,24 @@ PrefabInstance:
       propertyPath: m_SpriteSortPoint
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7300978688936323948, guid: 339d1fd06a32f1d49a5c521c672a7259, type: 3}
+      propertyPath: speed
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7300978688936323949, guid: 339d1fd06a32f1d49a5c521c672a7259, type: 3}
       propertyPath: m_Name
       value: Cheese
       objectReference: {fileID: 0}
     - target: {fileID: 7300978688936323949, guid: 339d1fd06a32f1d49a5c521c672a7259, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300978688936323949, guid: 339d1fd06a32f1d49a5c521c672a7259, type: 3}
       propertyPath: m_TagString
       value: Obstacle
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7300978688936323948, guid: 339d1fd06a32f1d49a5c521c672a7259, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 339d1fd06a32f1d49a5c521c672a7259, type: 3}
 --- !u!1 &6785368182660138036 stripped
 GameObject:

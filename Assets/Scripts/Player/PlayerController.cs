@@ -1,23 +1,30 @@
 using System.Collections;
 using Enemies;
 using Events;
+using Interfaces;
 using Rage;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 namespace Player
 {
     public class PlayerController : Attackable
     {
+        [Header("Setup")]
         [SerializeField] Rigidbody2D rb;
         [SerializeField] Animator animator;
-        [SerializeField] RageMeter rageMeter;
+        [SerializeField] private PlayerInput playerInput;
+        [SerializeField] [ReadOnly] private bool isDead;
         
         [Header("Movement")]
         [ReadOnly] public bool isFacingRight = true;
         [SerializeField] private float movementSpeed = 8f;
         private float horizontalMovement;
         [SerializeField] private bool isFalling;
+        private int direction;
+        private RaycastHit2D ray;
         
         [Header("Jumping")]
         public float jumpForce = 5;
@@ -26,24 +33,32 @@ namespace Player
         [SerializeField] private LayerMask groundLayer;
         
         [Header("Attacking")]
-        [SerializeField] private float initialWaitTime;
-        [SerializeField] private float attackTimeEnd;
-        [SerializeField] private BoxCollider2D attackTrigger;
+        [SerializeField][ReadOnly] bool canAttack = true;
+        [SerializeField] private float biteAttackCoolDown;
+        [SerializeField] private float biteAttackLength = 0.5f;
+        [SerializeField] private Transform attackTransform;
+        [SerializeField] private LayerMask attackLayer;
 
+        [Header("Rage")]
+        [SerializeField] RageMeter rageMeter;
+        
         #region Fields
 
+        public bool IsDead
+        {
+            get => isDead;
+            set => isDead = value;
+        }
         public bool IsGrounded
         {
             get => isGrounded;
             set => isGrounded = value;
         }
-
         public bool IsFalling
         {
             get => isFalling;
             set => isFalling = value;
         }
-
         public bool IsFacingRight
         {
             get => isFacingRight;
@@ -63,27 +78,27 @@ namespace Player
         {
             GetRigidBody();
             GetAnimator();
-            attackTrigger = GetComponentInChildren<BoxCollider2D>();
-            attackTrigger.gameObject.SetActive(false);
+            // attackTrigger = GetComponentInChildren<BoxCollider2D>();
+            // attackTrigger.gameObject.SetActive(false);
         }
 
         private void OnEnable()
         {
-            GameEvents.onPlayerChangeRageEvent += rageMeter.AddRage;
+            GameEvents.onPlayerChangeRageEvent += rageMeter.ChangeRage;
+            GameEvents.onPlayerDiedEvent += Die;
         }
         
         private void OnDisable()
         {
-            GameEvents.onPlayerChangeRageEvent -= rageMeter.AddRage;
+            GameEvents.onPlayerChangeRageEvent -= rageMeter.ChangeRage;
+            GameEvents.onPlayerDiedEvent -= Die;
         }
 
         private void Update()
         {
-            // ToDo: Raycast test for attacking. Might use later
-            // Vector2 direction = IsFacingRight ? Vector2.right : Vector2.left;
-            // RaycastHit2D raycastAttack = Physics2D.Raycast(transform.position, Vector2.right * direction);
-            // Debug.DrawRay(raycastAttack.point, direction, Color.red);
-            
+            // Bite attack ray
+            ray = Physics2D.CircleCast(attackTransform.position, biteAttackLength , Vector2.right * direction, 0f, attackLayer);
+
             SetFallingState();
 
             rb.velocity = new Vector2(horizontalMovement * movementSpeed, rb.velocity.y);
@@ -95,6 +110,9 @@ namespace Player
 
         private void OnDrawGizmos()
         {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(attackTransform.position, biteAttackLength);
+            
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(groundCheck.position, 0.1f);
         }
@@ -103,19 +121,33 @@ namespace Player
 
         public void Bite(InputAction.CallbackContext ctx)
         {
-            if(ctx.performed)
+            if(canAttack && ctx.started)
             {
+                StartCoroutine(AttackCooldown(biteAttackCoolDown));
                 animator.SetTrigger(BiteAnim);
-                StartCoroutine(ToggleAttackTrigger(initialWaitTime, attackTimeEnd));
+                if (ray.collider != null)
+                {
+                    if (ray.collider.TryGetComponent(out IAttackable attackable))
+                    {
+                        attackable.TakeDamage();
+                        
+                        Debug.Log($"{attackable} was attacked");
+                        
+                        if (ray.collider.TryGetComponent(out IRage rage))
+                        {
+                            GameEvents.onPlayerChangeRageEvent?.Invoke(rage.GetRageValue());
+                            Debug.Log("Rage has been sent");
+                        }
+                    }
+                }
             }
-            
-            IEnumerator ToggleAttackTrigger(float waitTime, float attackEnd)
-            {
-                yield return new WaitForSeconds(waitTime);
-                attackTrigger.gameObject.SetActive(true);
-                yield return new WaitForSeconds(attackEnd);
-                attackTrigger.gameObject.SetActive(false);
-            }
+        }
+
+        private IEnumerator AttackCooldown(float waitTime)
+        {
+            canAttack = false;
+            yield return new WaitForSeconds(waitTime);
+            canAttack = true;
         }
 
         public void Jump(InputAction.CallbackContext ctx)
@@ -138,6 +170,13 @@ namespace Player
         {
             horizontalMovement = ctx.ReadValue<Vector2>().x;
             animator.SetFloat("Speed", Mathf.Abs(horizontalMovement * movementSpeed));
+        }
+
+        public void Die()
+        {
+            IsDead = true;
+            Debug.Log("Player died");
+            playerInput.DeactivateInput();
         }
 
         #endregion
@@ -194,6 +233,7 @@ namespace Player
         
         private void SetFlipFacing()
         {
+
             if (!IsFacingRight && horizontalMovement > 0)
             {
                 Flip();
@@ -206,6 +246,8 @@ namespace Player
             void Flip()
             {
                 IsFacingRight = !IsFacingRight;
+                direction = IsFacingRight ? 1 : -1;
+
                 Vector3 localScale = transform.localScale;
                 localScale.x *= -1f;
                 transform.localScale = localScale;
