@@ -144,9 +144,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.3}
+  m_Offset: {x: 0, y: -0.1}
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.4
 --- !u!114 &2677739604552566150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,6 +166,7 @@ MonoBehaviour:
   rb: {fileID: 2677739604552566144}
   hitPoints: 1
   speed: 2
+  attackRange: 1
   fleeTime: 2
   fleeSpeed: 3.5
   rageValue:
@@ -177,6 +178,9 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 64
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 512
   deadColor: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 255}
   trail:
     trail: {fileID: 5677810299772013634}

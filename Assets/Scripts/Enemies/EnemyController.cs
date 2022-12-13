@@ -19,26 +19,28 @@ namespace Enemies
         [Header("Stats")] 
         [SerializeField] private int hitPoints = 1;
         [SerializeField] private float speed = 2f;
-        // [SerializeField] private float attackRange = 1f;
+        [SerializeField] private float attackRange = 1f;
         [SerializeField] private float fleeTime = 3f;
         [SerializeField] private float fleeSpeed = 3.5f;
         [SerializeField] private RageValue rageValue = new ();
         
         [Header("State")]
-        [SerializeField]
-        private bool isTriggered;
-        [SerializeField]
-        private bool isDead;
-        [FormerlySerializedAs("isAttacking")] [SerializeField]
-        private bool hasAttacked;
+        [SerializeField] private bool isTriggered;
+        [SerializeField] private bool isDead;
+        [SerializeField] private bool hasAttacked;
+        [SerializeField] private bool isAttacking;
+        [SerializeField] private bool distance;
         [SerializeField]
         private MovementType movementType;
         SpriteRenderer spriteRenderer;
         [SerializeField] private LayerMask ground;
+        [SerializeField] private LayerMask playerLayer;
         [SerializeField] Color deadColor = new Color(100,100,100,255);
         [Header("Trail")]
         [SerializeField] private EnemyTrailHandler trail = new();
-        
+
+
+       [SerializeField] private Collider2D hit;
         public int HitPoints
         {
             get => hitPoints;
@@ -55,15 +57,23 @@ namespace Enemies
             set => hasAttacked = value;
         }
 
+        public bool IsAttacking
+        {
+            get => isAttacking;
+            set => isAttacking = value;
+        }
+
         public bool IsDead
         {
             get => isDead;
             set => isDead = value;
         }
-
+        
         #region AnimationValues
             private static readonly int IsMoving = Animator.StringToHash("isMoving");
             private static readonly int Death = Animator.StringToHash("Death");
+            private static readonly int EnemyAttack = Animator.StringToHash("isAttacking");
+
         #endregion
 
         private void Start()
@@ -75,16 +85,16 @@ namespace Enemies
         
         private void Update()
         {
+            if(IsDead || IsAttacking || !target) return;
+            distance = Vector2.Distance(transform.position, target.position) < attackRange;
+            
             MoveTowards();
             Flee();
+            
+            if (!distance || HasAttacked) return;
+            Attack();
         }
-
-        private void OnCollisionEnter2D(Collision2D col)
-        {
-            if (col.gameObject.CompareTag("Player"))
-                HasAttacked = true;
-        }
-
+        
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.CompareTag("Player"))
@@ -94,6 +104,21 @@ namespace Enemies
                 isTriggered = true;
             }
             
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, attackRange);
+        }
+
+        private void Attack()
+        {
+            hit = Physics2D.OverlapCircle(transform.position, attackRange, playerLayer);
+            IsAttacking = true;
+            
+            if (hit != null && hit.TryGetComponent(out IAttackable attackable) && hit.CompareTag("Player"))
+                StartCoroutine(DelayAttack(hit, attackable));
         }
         
         private void SetIsDead()
@@ -132,7 +157,7 @@ namespace Enemies
         
         private void Flee()
         {
-            if(IsDead) return;
+            if(IsDead || IsAttacking) return;
             
             if(HasAttacked)
             {
@@ -148,6 +173,29 @@ namespace Enemies
         {
             yield return new WaitForSeconds(fleeTime);
             HasAttacked = false;
+        }
+
+        private IEnumerator DelayAttack(Collider2D raycastHit2D, IAttackable attackable)
+        {
+            animator.SetBool(EnemyAttack, true);
+            yield return new WaitForSeconds(.5f);
+            
+            if(!distance)
+            {
+                Debug.Log("We broke out");
+                yield return null;
+            }
+                
+            attackable.TakeDamage();
+            
+            Debug.Log($"Hit {raycastHit2D.GetComponent<Collider>()}" );
+            
+            yield return new WaitForSeconds(1f);
+            animator.SetBool(EnemyAttack, false);
+            IsAttacking = false;
+            HasAttacked = true;
+            Flee();
+            
         }
 
         public int GetRageValue()
