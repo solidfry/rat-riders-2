@@ -1,6 +1,7 @@
 using Interfaces;
 using Events;
 using UnityEngine;
+using Utilities;
 
 namespace Player
 {
@@ -13,7 +14,7 @@ namespace Player
             {
                 attackable.TakeDamage();
 
-                GameEvents.onScreenShakeEvent?.Invoke(CameraShake.Strength.Low);
+                GameEvents.onScreenShakeEvent?.Invoke(CameraShake.Strength.Low, .1f);
             }
 
             if (col.TryGetComponent(out IRage rage))

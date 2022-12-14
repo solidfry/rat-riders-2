@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
+using Utilities;
 
 namespace Player
 {
@@ -123,6 +124,7 @@ namespace Player
         {
             if(canAttack && ctx.started)
             {
+                GameEvents.onScreenShakeEvent?.Invoke(CameraShake.Strength.VeryLow);
                 StartCoroutine(AttackCooldown(biteAttackCoolDown));
                 animator.SetTrigger(BiteAnim);
                 if (ray.collider != null)

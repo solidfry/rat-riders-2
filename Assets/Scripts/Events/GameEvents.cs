@@ -1,5 +1,5 @@
-﻿using Rage;
-using UnityEngine;
+﻿using UnityEngine;
+using Utilities;
 
 namespace Events
 {
@@ -10,12 +10,10 @@ namespace Events
         public delegate void SetValue(int value);
         public delegate void Heal(int value);
         public delegate void PlayerDied();
-
         public delegate void KillPlayer();
-        public delegate void ScreenShake(CameraShake.Strength str);
+        public delegate void ScreenShake(CameraShake.Strength str, float lengthInSeconds = 0.2f);
         public delegate void ObstacleSpawned(int count);
         public delegate void PlayerChangeRage(int amount);
-
         public delegate void LoadNextLevel();
 
         public static HealthChange onHealthChangeEvent;

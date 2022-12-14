@@ -1,5 +1,6 @@
 using Events;
 using UnityEngine;
+using Utilities;
 
 namespace Player
 {
@@ -50,10 +51,7 @@ namespace Player
         private void ReduceHitPoints()
         {
             HitPoints--;
-            if(isPlayer)
-            {
-                GameEvents.onScreenShakeEvent.Invoke(CameraShake.Strength.VeryHigh);
-            }
+            if(isPlayer) GameEvents.onScreenShakeEvent.Invoke(CameraShake.Strength.Medium, .2f);
         }
         private void IncreaseHitPoints(int value) => HitPoints += value;
 

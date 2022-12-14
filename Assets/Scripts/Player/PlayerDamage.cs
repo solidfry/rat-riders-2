@@ -13,17 +13,19 @@ namespace Player
 
         [Space(20)]
 
-        private SpriteRenderer _spriteRenderer;
+        private SpriteRenderer spriteRenderer;
+        
         [Header("Damage Colour Settings")]
         [SerializeField] private Color damageColor;
         [SerializeField][ReadOnly] private Color originalColor;
         [SerializeField] private float damagedFlashTime;
         [SerializeField] private float damageFlashCount;
         [SerializeField][ReadOnly] private bool damaged;
+        
         private void Awake()
         {
-            _spriteRenderer = GetComponentInParent<SpriteRenderer>();
-            originalColor = _spriteRenderer.color;
+            spriteRenderer = GetComponentInParent<SpriteRenderer>();
+            originalColor = spriteRenderer.color;
         }
 
         private void OnEnable() => GameEvents.onPlayerDamagedEvent += SetDamaged;
@@ -32,8 +34,8 @@ namespace Player
         private void Update()
         {
             var spriteRendererColor = damaged
-                ? _spriteRenderer.color = LerpColor(originalColor, damageColor)
-                : _spriteRenderer.color = originalColor;
+                ? spriteRenderer.color = LerpColor(originalColor, damageColor)
+                : spriteRenderer.color = originalColor;
         }
 
         private void SetDamaged()

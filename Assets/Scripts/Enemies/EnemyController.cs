@@ -167,7 +167,6 @@ namespace Enemies
                 Debug.Log("Player triggered event");
                 isTriggered = true;
             }
-            
         }
 
         private void OnDrawGizmos()
@@ -179,10 +178,11 @@ namespace Enemies
         private void Attack()
         {
             hit = Physics2D.OverlapCircle(attackOrigin.position, attackRange, playerLayer);
-            IsAttacking = true;
-            
             if (hit != null && hit.TryGetComponent(out IAttackable attackable) && hit.CompareTag("Player"))
+            {
+                IsAttacking = true;
                 StartCoroutine(DelayAttack(hit, attackable));
+            }
         }
         
         private void SetIsDead()
@@ -253,9 +253,6 @@ namespace Enemies
 
                 rb.AddForce(-1 * fleeSpeed * directionOfTravel);
                 
-                // This will make this enemy move away from the player
-                // transform.position = Vector2.MoveTowards(transform.position, target.position, -1 * fleeSpeed * Time.deltaTime);
-
                 StartCoroutine(SetFleeTime());
             }
         }
