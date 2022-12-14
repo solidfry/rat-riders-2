@@ -59,12 +59,12 @@ namespace Player
             get => isFalling;
             set => isFalling = value;
         }
+        
         public bool IsFacingRight
         {
             get => isFacingRight;
             set => isFacingRight = value;
         }
-        
 
         #endregion
         #region AnimationValues
@@ -72,14 +72,14 @@ namespace Player
         private static readonly int BiteAnim = Animator.StringToHash("Bite");
         private static readonly int Grounded = Animator.StringToHash("Grounded");
         private static readonly int Falling = Animator.StringToHash("isFalling");
+        private static readonly int Speed = Animator.StringToHash("Speed");
+
         #endregion
 
         void Awake()
         {
             GetRigidBody();
             GetAnimator();
-            // attackTrigger = GetComponentInChildren<BoxCollider2D>();
-            // attackTrigger.gameObject.SetActive(false);
         }
 
         private void OnEnable()
@@ -169,7 +169,7 @@ namespace Player
         public void Move(InputAction.CallbackContext ctx)
         {
             horizontalMovement = ctx.ReadValue<Vector2>().x;
-            animator.SetFloat("Speed", Mathf.Abs(horizontalMovement * movementSpeed));
+            animator.SetFloat(Speed, Mathf.Abs(horizontalMovement * movementSpeed));
         }
 
         public void Die()

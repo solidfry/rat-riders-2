@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b8f5927434d225148a2def2725af4206
+guid: 1bb28619ac3b4fb4f94583965e3baf9f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -116,7 +116,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: goblin-idle_0
+      name: goblin-death_0
       rect:
         serializedVersion: 2
         x: 0
@@ -130,14 +130,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b3e35ed8f1cfd8c4e9052dc2abebf1c8
-      internalID: 1080353500
+      spriteID: c275f10127f8e24418b8465dbd716401
+      internalID: -1351600048
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin-idle_1
+      name: goblin-death_1
       rect:
         serializedVersion: 2
         x: 32
@@ -151,14 +151,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b5f8f74c441487a49890308d11218c65
-      internalID: 1347747215
+      spriteID: 624fd472aa930884b842a4de38d318cd
+      internalID: -760875280
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin-idle_2
+      name: goblin-death_2
       rect:
         serializedVersion: 2
         x: 64
@@ -172,8 +172,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f5d3f82acda8aca4297ee66af7eebc28
-      internalID: 563402722
+      spriteID: 8556176163b1db647b0caeb11ed6e22a
+      internalID: -1491446996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblin-death_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d43967fa2f9e1747835833e87a5d2f4
+      internalID: -795316317
       vertices: []
       indices: 
       edges: []
@@ -189,9 +210,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      goblin-idle_0: 1080353500
-      goblin-idle_2: 563402722
-      goblin-idle_1: 1347747215
+      goblin-death_0: -1351600048
+      goblin-death_3: -795316317
+      goblin-death_2: -1491446996
+      goblin-death_1: -760875280
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

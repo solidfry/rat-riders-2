@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &357214352344774078
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5020313462231715666}
+  m_Layer: 8
+  m_Name: AttackOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5020313462231715666
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357214352344774078}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2677739604552566145}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2677739604552566156
 GameObject:
   m_ObjectHideFlags: 0
@@ -35,6 +66,7 @@ Transform:
   m_Children:
   - {fileID: 4007548773853305583}
   - {fileID: 6263910480631873725}
+  - {fileID: 5020313462231715666}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -122,14 +154,14 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.2
-  m_LinearDrag: 0.5
+  m_Mass: 1
+  m_LinearDrag: 1
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!58 &2677739604552566151
 CircleCollider2D:
@@ -165,16 +197,19 @@ MonoBehaviour:
   animator: {fileID: 2677739604552566147}
   rb: {fileID: 2677739604552566144}
   hitPoints: 1
-  speed: 2
+  speed: 0.5
   attackRange: 1
   fleeTime: 2
-  fleeSpeed: 3.5
+  fleeSpeed: 1.25
   rageValue:
     value: 20
   isTriggered: 0
   isDead: 0
   hasAttacked: 0
+  isAttacking: 0
+  distance: 0
   movementType: 1
+  isFacingRight: 1
   ground:
     serializedVersion: 2
     m_Bits: 64
@@ -184,6 +219,8 @@ MonoBehaviour:
   deadColor: {r: 0.39215687, g: 0.39215687, b: 0.39215687, a: 255}
   trail:
     trail: {fileID: 5677810299772013634}
+  hit: {fileID: 0}
+  attackOrigin: {fileID: 5020313462231715666}
 --- !u!1 &3513706816981663429
 GameObject:
   m_ObjectHideFlags: 0
