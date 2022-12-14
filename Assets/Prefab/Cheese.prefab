@@ -29,11 +29,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7300978688936323945, guid: 339d1fd06a32f1d49a5c521c672a7259, type: 3}
       propertyPath: m_Size.y
-      value: 0.4
+      value: 0.40463597
       objectReference: {fileID: 0}
     - target: {fileID: 7300978688936323945, guid: 339d1fd06a32f1d49a5c521c672a7259, type: 3}
       propertyPath: m_Offset.y
-      value: -0.18
+      value: 0.013530046
       objectReference: {fileID: 0}
     - target: {fileID: 7300978688936323945, guid: 339d1fd06a32f1d49a5c521c672a7259, type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.y
@@ -61,11 +61,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7300978688936323946, guid: 339d1fd06a32f1d49a5c521c672a7259, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.1771239
+      value: 2.77
       objectReference: {fileID: 0}
     - target: {fileID: 7300978688936323946, guid: 339d1fd06a32f1d49a5c521c672a7259, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.81
+      value: 0.68
       objectReference: {fileID: 0}
     - target: {fileID: 7300978688936323946, guid: 339d1fd06a32f1d49a5c521c672a7259, type: 3}
       propertyPath: m_LocalPosition.z
@@ -151,3 +151,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee3bdf1cb8bd034479509c031c802e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healValue: 1
+  rageValue:
+    value: -10

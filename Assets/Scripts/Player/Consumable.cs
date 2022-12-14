@@ -7,7 +7,7 @@ namespace Player
 {
     public class Consumable : MonoBehaviour, IRage
     {
-        bool heal = false;
+        [SerializeField] bool heal = false;
         [SerializeField] private int healValue = 1;
         [SerializeField] private RageValue rageValue = new ();
 

@@ -16,6 +16,8 @@ namespace Events
         public delegate void ObstacleSpawned(int count);
         public delegate void PlayerChangeRage(int amount);
 
+        public delegate void LoadNextLevel();
+
         public static HealthChange onHealthChangeEvent;
         public static PlayerDied onPlayerDiedEvent;
         public static KillPlayer onKillPlayerEvent;
@@ -25,5 +27,6 @@ namespace Events
         public static Heal onPlayerHealedEvent;
         public static ScreenShake onScreenShakeEvent;
         public static ObstacleSpawned onObstacleSpawnedEvent;
+        public static LoadNextLevel onLoadNextLevelEvent;
     }
 }

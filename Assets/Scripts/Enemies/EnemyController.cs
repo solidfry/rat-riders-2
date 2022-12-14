@@ -196,6 +196,7 @@ namespace Enemies
             rb.gravityScale = 2;
             trail.DisableTrail();
             spriteRenderer.color = deadColor;
+            Destroy(this.gameObject, 1f);
         }
         
         private void SetGravity()
