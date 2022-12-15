@@ -20,7 +20,7 @@ namespace Utilities
         [SerializeField] CinemachineVirtualCamera cam;
         [SerializeField] private CinemachineBasicMultiChannelPerlin noise;
     
-        private void Awake()
+        private void Start()
         {
             cam = FindObjectOfType<CinemachineVirtualCamera>();
             noise = cam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
@@ -29,11 +29,12 @@ namespace Utilities
 
         private void OnEnable() => GameEvents.onScreenShakeEvent += Shake;
 
-        private void OnDisable() => GameEvents.onScreenShakeEvent += Shake;
+        private void OnDisable() => GameEvents.onScreenShakeEvent -= Shake;
     
         void Shake(Strength str, float  lengthInSeconds= .2f)
         {
-            noise = cam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+            if(noise == null)
+                noise = cam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
             switch (str)
             {
                 case Strength.VeryLow:

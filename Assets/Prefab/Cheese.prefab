@@ -33,7 +33,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7300978688936323945, guid: 339d1fd06a32f1d49a5c521c672a7259, type: 3}
       propertyPath: m_Offset.y
-      value: 0.013530046
+      value: -0.14
       objectReference: {fileID: 0}
     - target: {fileID: 7300978688936323945, guid: 339d1fd06a32f1d49a5c521c672a7259, type: 3}
       propertyPath: m_SpriteTilingProperty.pivot.y
@@ -41,11 +41,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7300978688936323945, guid: 339d1fd06a32f1d49a5c521c672a7259, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7300978688936323945, guid: 339d1fd06a32f1d49a5c521c672a7259, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7300978688936323946, guid: 339d1fd06a32f1d49a5c521c672a7259, type: 3}
       propertyPath: m_RootOrder
@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee3bdf1cb8bd034479509c031c802e8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heal: 0
   healValue: 1
   rageValue:
     value: -10

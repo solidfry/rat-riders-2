@@ -22,7 +22,7 @@ namespace Player
 
         [Header("Movement")]
         [SerializeField] private float movementSpeed = 8f;
-        private float horizontalMovement;
+        [SerializeField] private float horizontalMovement;
         [SerializeField] private bool isFalling;
         private int direction;
         private RaycastHit2D ray;
