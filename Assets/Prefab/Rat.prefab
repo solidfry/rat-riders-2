@@ -114,6 +114,7 @@ GameObject:
   - component: {fileID: 515536261}
   - component: {fileID: 515536264}
   - component: {fileID: 4545440811108521886}
+  - component: {fileID: 3577214661384232543}
   m_Layer: 0
   m_Name: Rat
   m_TagString: Player
@@ -403,6 +404,21 @@ MonoBehaviour:
   hitPoints: 3
   maxHitPoints: 3
   isPlayer: 1
+--- !u!114 &3577214661384232543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7214167155204362656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 762a85dcec2bd0e45a1d9d4d199e6949, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocityX: 0
+  direction: 0
+  isFacingRight: 1
 --- !u!1 &7668776776024040116
 GameObject:
   m_ObjectHideFlags: 0

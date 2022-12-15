@@ -17,22 +17,21 @@ namespace Player
         [SerializeField] Rigidbody2D rb;
         [SerializeField] Animator animator;
         [SerializeField] private PlayerInput playerInput;
-        [SerializeField] [ReadOnly] private bool isDead;
-        
+        [SerializeField][ReadOnly] private bool isDead;
+
         [Header("Movement")]
-        [ReadOnly] public bool isFacingRight = true;
         [SerializeField] private float movementSpeed = 8f;
         private float horizontalMovement;
         [SerializeField] private bool isFalling;
         private int direction;
         private RaycastHit2D ray;
-        
+
         [Header("Jumping")]
         public float jumpForce = 5;
         [ReadOnly] public bool isGrounded;
         [SerializeField] private Transform groundCheck;
         [SerializeField] private LayerMask groundLayer;
-        
+
         [Header("Attacking")]
         [SerializeField][ReadOnly] bool canAttack = true;
         [SerializeField] private float biteAttackCoolDown;
@@ -42,7 +41,7 @@ namespace Player
 
         [Header("Rage")]
         [SerializeField] RageMeter rageMeter;
-        
+
         #region Fields
 
         public bool IsDead
@@ -60,14 +59,8 @@ namespace Player
             get => isFalling;
             set => isFalling = value;
         }
-        
-        public bool IsFacingRight
-        {
-            get => isFacingRight;
-            set => isFacingRight = value;
-        }
-
         #endregion
+
         #region AnimationValues
         private static readonly int JumpAnim = Animator.StringToHash("Jump");
         private static readonly int BiteAnim = Animator.StringToHash("Bite");
@@ -88,7 +81,7 @@ namespace Player
             GameEvents.onPlayerChangeRageEvent += rageMeter.ChangeRage;
             GameEvents.onPlayerDiedEvent += Die;
         }
-        
+
         private void OnDisable()
         {
             GameEvents.onPlayerChangeRageEvent -= rageMeter.ChangeRage;
@@ -98,22 +91,20 @@ namespace Player
         private void Update()
         {
             // Bite attack ray
-            ray = Physics2D.CircleCast(attackTransform.position, biteAttackLength , Vector2.right * direction, 0f, attackLayer);
+            ray = Physics2D.CircleCast(attackTransform.position, biteAttackLength, Vector2.right * direction, 0f, attackLayer);
 
             SetFallingState();
 
             rb.velocity = new Vector2(horizontalMovement * movementSpeed, rb.velocity.y);
             IsGrounded = IsCharacterGrounded();
             animator.SetBool(Grounded, IsGrounded);
-            
-            SetFlipFacing();
         }
 
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(attackTransform.position, biteAttackLength);
-            
+
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(groundCheck.position, 0.1f);
         }
@@ -122,7 +113,7 @@ namespace Player
 
         public void Bite(InputAction.CallbackContext ctx)
         {
-            if(canAttack && ctx.started)
+            if (canAttack && ctx.started)
             {
                 GameEvents.onScreenShakeEvent?.Invoke(CameraShake.Strength.VeryLow);
                 StartCoroutine(AttackCooldown(biteAttackCoolDown));
@@ -132,9 +123,9 @@ namespace Player
                     if (ray.collider.TryGetComponent(out IAttackable attackable))
                     {
                         attackable.TakeDamage();
-                        
+
                         Debug.Log($"{attackable} was attacked");
-                        
+
                         if (ray.collider.TryGetComponent(out IRage rage))
                         {
                             GameEvents.onPlayerChangeRageEvent?.Invoke(rage.GetRageValue());
@@ -159,8 +150,8 @@ namespace Player
                 rb.velocity = new Vector2(rb.velocity.x, jumpForce);
                 animator.SetTrigger(JumpAnim);
             }
-            
-            if(ctx.canceled && rb.velocity.y > 0)
+
+            if (ctx.canceled && rb.velocity.y > 0)
             {
                 rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
             }
@@ -182,7 +173,7 @@ namespace Player
         }
 
         #endregion
-        
+
         #region Setup Methods
         bool IsCharacterGrounded() => Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer);
 
@@ -190,18 +181,18 @@ namespace Player
         {
             if (rb != null)
                 return;
-            
+
             rb = GetComponent<Rigidbody2D>();
         }
 
         void GetAnimator()
         {
-            if(animator != null)
+            if (animator != null)
                 return;
-            
+
             animator = GetComponent<Animator>();
         }
-        
+
         void SetGravityScaleOnJump()
         {
             // if the player is moving downwards and is not grounded, set the gravity scale to 2 else set it to 1
@@ -214,50 +205,28 @@ namespace Player
                 rb.gravityScale = 1;
             }
         }
-        
+
         private void SetFallingState()
         {
-            if(IsGrounded) return;
-            
+            if (IsGrounded) return;
+
             IsFalling = rb.velocity.y < 0;
-            
+
             if (IsFalling)
             {
                 rb.gravityScale = 2.5f;
-                animator.SetBool(Falling,  true);
+                animator.SetBool(Falling, true);
             }
             else
             {
-                animator.SetBool(Falling,  false);
+                animator.SetBool(Falling, false);
                 rb.gravityScale = 1;
             }
         }
-        
-        private void SetFlipFacing()
-        {
 
-            if (!IsFacingRight && horizontalMovement > 0)
-            {
-                Flip();
-            }
-            else if (IsFacingRight && horizontalMovement < 0)
-            {
-                Flip();
-            }
-            
-            void Flip()
-            {
-                IsFacingRight = !IsFacingRight;
-                direction = IsFacingRight ? 1 : -1;
-
-                Vector3 localScale = transform.localScale;
-                localScale.x *= -1f;
-                transform.localScale = localScale;
-            }
-        }
         #endregion
-        
-        
-        
+
+
+
     }
 }

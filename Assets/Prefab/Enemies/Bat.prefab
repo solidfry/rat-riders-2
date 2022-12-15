@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 2677739604552566144}
   - component: {fileID: 2677739604552566151}
   - component: {fileID: 2677739604552566150}
+  - component: {fileID: 5132153953799194192}
   m_Layer: 8
   m_Name: Bat
   m_TagString: Enemy
@@ -209,7 +210,6 @@ MonoBehaviour:
   isAttacking: 0
   distance: 0
   movementType: 1
-  isFacingRight: 1
   ground:
     serializedVersion: 2
     m_Bits: 64
@@ -221,6 +221,22 @@ MonoBehaviour:
     trail: {fileID: 5677810299772013634}
   hit: {fileID: 0}
   attackOrigin: {fileID: 5020313462231715666}
+  directionOfTravel: {x: 0, y: 0}
+--- !u!114 &5132153953799194192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2677739604552566156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 762a85dcec2bd0e45a1d9d4d199e6949, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocityX: 0
+  direction: 0
+  isFacingRight: 1
 --- !u!1 &3513706816981663429
 GameObject:
   m_ObjectHideFlags: 0
