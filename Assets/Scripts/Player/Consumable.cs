@@ -9,7 +9,7 @@ namespace Player
     {
         [SerializeField] bool heal = false;
         [SerializeField] private int healValue = 1;
-        [SerializeField] private RageValue rageValue = new ();
+        [SerializeField] private RageValue rageValue = new();
 
         private void OnDestroy()
         {
@@ -21,7 +21,7 @@ namespace Player
             }
         }
 
-        public int GetRageValue()
+        public float GetRageValue()
         {
             return rageValue.GetRageValue();
         }

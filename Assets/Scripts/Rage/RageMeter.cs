@@ -1,4 +1,5 @@
 using System;
+using Events;
 using UnityEngine;
 
 namespace Rage
@@ -6,17 +7,20 @@ namespace Rage
     [Serializable]
     public class RageMeter
     {
-        [Range(0,100)]
-        [SerializeField] private int rageValue = 0;
+        [Range(0, 1)]
+        [SerializeField] private float rageValue = 0;
+        [SerializeField] private float speedMultiplier = 1.1f;
+        [SerializeField] private float jumpMultiplier = 1.5f;
+
         [SerializeField][ReadOnly] bool isRaging = false;
 
-        public int RageValue
+        public float RageValue
         {
             get => rageValue;
             set
             {
-                rageValue = Mathf.Clamp(value, 0, 100);
-                if(RageValue > 99)
+                rageValue = Mathf.Clamp(value, 0, 1);
+                if (RageValue == 1)
                 {
                     isRaging = true;
                 }
@@ -26,16 +30,30 @@ namespace Rage
                 }
             }
         }
-        
+
+        public float SpeedMultiplier
+        {
+            get => speedMultiplier;
+            set => speedMultiplier = value;
+        }
+
+
+        public float JumpMultiplier
+        {
+            get => jumpMultiplier;
+            set => jumpMultiplier = value;
+        }
+
+
         public bool IsRaging
         {
             get => isRaging;
             set => isRaging = value;
         }
-        
-        public void ChangeRage(int amount)
+
+        public void ChangeRage(float amount)
         {
-            if(amount > 0)
+            if (amount > 0)
             {
                 AddRage(amount);
             }
@@ -45,17 +63,29 @@ namespace Rage
             }
         }
 
-        public void AddRage(int rageToAdd) => RageValue += rageToAdd;
+        public void AddRage(float rageToAdd)
+        {
+            RageValue += rageToAdd;
+            // Send the normalised value
+            GameEvents.onChangeRageUIEvent?.Invoke(RageValue);
+        }
 
-        public void ReduceRage(int rageToReduce)
+        public void ReduceRage(float rageToReduce)
         {
             // if rageToReduce is negative make it positive
             var rageToReducePositive = rageToReduce < 0 ? rageToReduce * -1 : rageToReduce;
             RageValue -= rageToReducePositive;
+            // Send the normalised value
+            GameEvents.onChangeRageUIEvent?.Invoke(RageValue);
         }
 
-        public void ResetRage() => RageValue = 0;
-    
+        public void ResetRage()
+        {
+            RageValue = 0;
+            // Send the normalised value
+            GameEvents.onChangeRageUIEvent?.Invoke(RageValue);
+        }
+
         public void ActivateRage()
         {
             IsRaging = true;

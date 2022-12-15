@@ -142,7 +142,7 @@ namespace Enemies
             rb.gravityScale = 2;
             trail.DisableTrail();
             spriteRenderer.color = deadColor;
-            Destroy(this.gameObject, 1f);
+            // Destroy(this.gameObject, 1f);
         }
 
         private void SetGravity()
@@ -229,7 +229,7 @@ namespace Enemies
             Flee();
         }
 
-        public int GetRageValue()
+        public float GetRageValue()
         {
             return rageValue.GetRageValue();
         }

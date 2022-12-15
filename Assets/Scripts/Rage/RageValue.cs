@@ -7,15 +7,16 @@ namespace Rage
     [Serializable]
     public class RageValue : IRage
     {
-       [SerializeField] private int value;
+        [Range(0, 1)]
+        [SerializeField] private float value;
 
-        public int Value
+        public float Value
         {
             get => value;
             private set => this.value = value;
         }
 
-        public int GetRageValue()
+        public float GetRageValue()
         {
             return Value;
         }

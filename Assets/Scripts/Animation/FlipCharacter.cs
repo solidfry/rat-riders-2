@@ -3,7 +3,8 @@ using UnityEngine;
 public class FlipCharacter : MonoBehaviour
 {
 
-    [SerializeField] float velocityX;
+    [SerializeField] float velocityX = 1f;
+    float previousVelocity;
     [SerializeField] private float direction;
     [SerializeField][ReadOnly] private bool isFacingRight = true;
     Rigidbody2D rb;
@@ -19,11 +20,16 @@ public class FlipCharacter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        velocityX = rb.velocity.normalized.x;
+
         FlipSpriteDirection();
     }
 
     private void FlipSpriteDirection()
     {
+        if (velocityX != 0)
+            previousVelocity = velocityX;
+
         CheckMoveDirection();
         Flip();
 
@@ -38,15 +44,14 @@ public class FlipCharacter : MonoBehaviour
 
     private void CheckMoveDirection()
     {
-        velocityX = Mathf.Clamp(rb.velocity.normalized.x, -1, 1);
-
         if (velocityX > 0)
         {
             IsFacingRight = true;
         }
-        if (velocityX < 0)
+        else if (velocityX < 0)
         {
             IsFacingRight = false;
         }
+
     }
 }

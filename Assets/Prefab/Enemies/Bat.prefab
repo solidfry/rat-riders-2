@@ -203,7 +203,7 @@ MonoBehaviour:
   fleeTime: 2
   fleeSpeed: 1.25
   rageValue:
-    value: 20
+    value: 0.15
   isTriggered: 0
   isDead: 0
   hasAttacked: 0

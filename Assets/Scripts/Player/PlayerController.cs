@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Enemies;
 using Events;
@@ -41,6 +42,9 @@ namespace Player
 
         [Header("Rage")]
         [SerializeField] RageMeter rageMeter;
+        [SerializeField] float rageJump;
+        [SerializeField] float coyoteTime = 0.3f;
+        [SerializeField] float coyoteTimeReset = 0.3f;
 
         #region Fields
 
@@ -95,9 +99,25 @@ namespace Player
 
             SetFallingState();
 
+            if (rageMeter.IsRaging)
+            {
+                Rage();
+            }
+
             rb.velocity = new Vector2(horizontalMovement * movementSpeed, rb.velocity.y);
+
+
             IsGrounded = IsCharacterGrounded();
             animator.SetBool(Grounded, IsGrounded);
+
+            coyoteTime -= Time.deltaTime;
+            if (IsGrounded)
+                ResetCoyoteTimer();
+        }
+
+        private void ResetCoyoteTimer()
+        {
+            coyoteTime = coyoteTimeReset;
         }
 
         private void OnDrawGizmos()
@@ -145,9 +165,10 @@ namespace Player
 
         public void Jump(InputAction.CallbackContext ctx)
         {
-            if (ctx.performed && IsCharacterGrounded())
+            float forceToApply = rageMeter.IsRaging ? rageJump : jumpForce;
+            if (ctx.performed && (IsCharacterGrounded() || coyoteTime > 0))
             {
-                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                rb.velocity = new Vector2(rb.velocity.x, forceToApply);
                 animator.SetTrigger(JumpAnim);
             }
 
@@ -162,6 +183,15 @@ namespace Player
         public void Move(InputAction.CallbackContext ctx)
         {
             horizontalMovement = ctx.ReadValue<Vector2>().x;
+            animator.SetFloat(Speed, Mathf.Abs(horizontalMovement * movementSpeed));
+        }
+
+        public void Rage()
+        {
+            rageJump = jumpForce;
+            rageJump = jumpForce * rageMeter.SpeedMultiplier + rageMeter.JumpMultiplier;
+
+            horizontalMovement = 1f * rageMeter.SpeedMultiplier;
             animator.SetFloat(Speed, Mathf.Abs(horizontalMovement * movementSpeed));
         }
 

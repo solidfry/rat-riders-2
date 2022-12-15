@@ -2,6 +2,6 @@
 {
     public interface IRage
     {
-        public int GetRageValue();
+        public float GetRageValue();
     }
 }
