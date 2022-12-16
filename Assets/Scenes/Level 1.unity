@@ -294,32 +294,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1924176394962106825, guid: d96eebd80f6e335448d7d7c955197bf3, type: 3}
-      propertyPath: m_Mass
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1924176394962106825, guid: d96eebd80f6e335448d7d7c955197bf3, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 6200000, guid: 358011cf2b8c566428126fe5cc1e8515, type: 2}
-    - target: {fileID: 1924176394962106825, guid: d96eebd80f6e335448d7d7c955197bf3, type: 3}
       propertyPath: m_LinearDrag
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1924176394962106825, guid: d96eebd80f6e335448d7d7c955197bf3, type: 3}
-      propertyPath: m_AngularDrag
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1924176394962106825, guid: d96eebd80f6e335448d7d7c955197bf3, type: 3}
-      propertyPath: m_GravityScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1924176394962106831, guid: d96eebd80f6e335448d7d7c955197bf3, type: 3}
-      propertyPath: speed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1924176394962106831, guid: d96eebd80f6e335448d7d7c955197bf3, type: 3}
-      propertyPath: fleeSpeed
-      value: 15
+      value: 0.01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d96eebd80f6e335448d7d7c955197bf3, type: 3}
