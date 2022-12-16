@@ -153,7 +153,7 @@ namespace Enemies
                     rb.gravityScale = 0;
                     break;
                 case MovementType.Walking:
-                    rb.gravityScale = 2;
+                    rb.gravityScale = 1;
                     break;
                 default:
                     break;
@@ -182,7 +182,7 @@ namespace Enemies
 
                 directionOfTravel = directionOfTravel.normalized;
 
-                rb.AddForce(speed * directionOfTravel);
+                rb.AddForce(speed * directionOfTravel * Time.deltaTime);
 
             }
         }
@@ -197,7 +197,7 @@ namespace Enemies
 
                 directionOfTravel = directionOfTravel.normalized;
 
-                rb.AddForce(-1 * fleeSpeed * directionOfTravel);
+                rb.AddForce(-1 * fleeSpeed * directionOfTravel * Time.deltaTime);
 
                 StartCoroutine(SetFleeTime());
             }
