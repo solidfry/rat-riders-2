@@ -17,7 +17,7 @@ PrefabInstance:
       objectReference: {fileID: 6200000, guid: 358011cf2b8c566428126fe5cc1e8515, type: 2}
     - target: {fileID: 2677739604552566144, guid: 5b4a4fe30e9536f48a6a4465a8cbdd4e, type: 3}
       propertyPath: m_LinearDrag
-      value: 0
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 2677739604552566144, guid: 5b4a4fe30e9536f48a6a4465a8cbdd4e, type: 3}
       propertyPath: m_AngularDrag
@@ -37,11 +37,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2677739604552566145, guid: 5b4a4fe30e9536f48a6a4465a8cbdd4e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.45
+      value: 17.32
       objectReference: {fileID: 0}
     - target: {fileID: 2677739604552566145, guid: 5b4a4fe30e9536f48a6a4465a8cbdd4e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.67
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 2677739604552566145, guid: 5b4a4fe30e9536f48a6a4465a8cbdd4e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -133,7 +133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2677739604552566156, guid: 5b4a4fe30e9536f48a6a4465a8cbdd4e, type: 3}
       propertyPath: m_Name
-      value: Goblin (3)
+      value: Goblin
       objectReference: {fileID: 0}
     - target: {fileID: 5020313462231715666, guid: 5b4a4fe30e9536f48a6a4465a8cbdd4e, type: 3}
       propertyPath: m_LocalPosition.x
