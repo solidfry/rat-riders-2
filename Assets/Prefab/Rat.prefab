@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 3338821509039764321}
   - component: {fileID: 1891603390840193802}
   - component: {fileID: 634749690457713918}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DamageCollider
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -370,10 +370,10 @@ MonoBehaviour:
   animator: {fileID: 7214167155204362659}
   playerInput: {fileID: 515536261}
   isDead: 0
-  isFacingRight: 1
   movementSpeed: 4
+  horizontalMovement: 0
   isFalling: 0
-  jumpForce: 5
+  jumpForce: 6
   isGrounded: 0
   groundCheck: {fileID: 4562918483713502263}
   groundLayer:
@@ -381,14 +381,19 @@ MonoBehaviour:
     m_Bits: 64
   canAttack: 1
   biteAttackCoolDown: 0.4
-  biteAttackLength: 0.4
+  biteAttackLength: 1
   attackTransform: {fileID: 3754313850026233}
   attackLayer:
     serializedVersion: 2
     m_Bits: 256
   rageMeter:
     rageValue: 0
+    speedMultiplier: 1.1
+    jumpMultiplier: 1.5
     isRaging: 0
+  rageJump: 0
+  coyoteTime: 0.3
+  coyoteTimeReset: 0.3
 --- !u!114 &4545440811108521886
 MonoBehaviour:
   m_ObjectHideFlags: 0

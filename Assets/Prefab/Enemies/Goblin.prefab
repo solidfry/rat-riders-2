@@ -13,7 +13,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2677739604552566144, guid: 5b4a4fe30e9536f48a6a4465a8cbdd4e, type: 3}
       propertyPath: m_LinearDrag
-      value: 2
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2677739604552566144, guid: 5b4a4fe30e9536f48a6a4465a8cbdd4e, type: 3}
       propertyPath: m_GravityScale
@@ -29,11 +29,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2677739604552566145, guid: 5b4a4fe30e9536f48a6a4465a8cbdd4e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 16.46
+      value: -9.8
       objectReference: {fileID: 0}
     - target: {fileID: 2677739604552566145, guid: 5b4a4fe30e9536f48a6a4465a8cbdd4e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.19
+      value: -4.4
       objectReference: {fileID: 0}
     - target: {fileID: 2677739604552566145, guid: 5b4a4fe30e9536f48a6a4465a8cbdd4e, type: 3}
       propertyPath: m_LocalPosition.z
