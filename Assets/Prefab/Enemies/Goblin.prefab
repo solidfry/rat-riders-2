@@ -9,11 +9,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2677739604552566144, guid: 5b4a4fe30e9536f48a6a4465a8cbdd4e, type: 3}
       propertyPath: m_Mass
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2677739604552566144, guid: 5b4a4fe30e9536f48a6a4465a8cbdd4e, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 358011cf2b8c566428126fe5cc1e8515, type: 2}
+    - target: {fileID: 2677739604552566144, guid: 5b4a4fe30e9536f48a6a4465a8cbdd4e, type: 3}
       propertyPath: m_LinearDrag
-      value: 0.5
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2677739604552566144, guid: 5b4a4fe30e9536f48a6a4465a8cbdd4e, type: 3}
+      propertyPath: m_AngularDrag
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2677739604552566144, guid: 5b4a4fe30e9536f48a6a4465a8cbdd4e, type: 3}
       propertyPath: m_GravityScale
@@ -29,11 +37,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2677739604552566145, guid: 5b4a4fe30e9536f48a6a4465a8cbdd4e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.8
+      value: -9.45
       objectReference: {fileID: 0}
     - target: {fileID: 2677739604552566145, guid: 5b4a4fe30e9536f48a6a4465a8cbdd4e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.4
+      value: -4.67
       objectReference: {fileID: 0}
     - target: {fileID: 2677739604552566145, guid: 5b4a4fe30e9536f48a6a4465a8cbdd4e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -77,7 +85,7 @@ PrefabInstance:
       objectReference: {fileID: 22100000, guid: d3b70f293134da6499c27100d7bad62d, type: 2}
     - target: {fileID: 2677739604552566150, guid: 5b4a4fe30e9536f48a6a4465a8cbdd4e, type: 3}
       propertyPath: speed
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2677739604552566150, guid: 5b4a4fe30e9536f48a6a4465a8cbdd4e, type: 3}
       propertyPath: fleeTime
@@ -85,7 +93,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2677739604552566150, guid: 5b4a4fe30e9536f48a6a4465a8cbdd4e, type: 3}
       propertyPath: fleeSpeed
-      value: 1.2
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 2677739604552566150, guid: 5b4a4fe30e9536f48a6a4465a8cbdd4e, type: 3}
       propertyPath: hitPoints
@@ -125,7 +133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2677739604552566156, guid: 5b4a4fe30e9536f48a6a4465a8cbdd4e, type: 3}
       propertyPath: m_Name
-      value: Goblin
+      value: Goblin (3)
       objectReference: {fileID: 0}
     - target: {fileID: 5020313462231715666, guid: 5b4a4fe30e9536f48a6a4465a8cbdd4e, type: 3}
       propertyPath: m_LocalPosition.x
